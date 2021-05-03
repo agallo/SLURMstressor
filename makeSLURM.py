@@ -42,8 +42,11 @@ def genV6list(incount):
     :param incount:
     :return: list of prefixes
     """
+    # log base 2 would be the number of  bits needed to make the requested number of networks
+    # we need to round up to the next integer
     mask_diff = ceil(log(incount, 2))
     listOfNetworks = list(ipaddress.ip_network('2001:DB8::/32').subnets(prefixlen_diff=mask_diff))
+    # return only the portion of the list that meets the requested length
     return listOfNetworks[0:incount]
 
 
