@@ -1,6 +1,6 @@
 # SLURMstressor
 
-Python script to generate Simplified Local Internet Number Resource Management with the RPKI [(SLURM)](https://tools.ietf.org/html/rfc8416) to test RPKI validators and routers.
+Python script to generate Simplified Local Internet Number Resource Management with the RPKI [(SLURM)](https://tools.ietf.org/html/rfc8416) files to test RPKI validators and routers.
 
 ## Usage
 ```
