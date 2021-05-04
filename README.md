@@ -4,8 +4,8 @@ Python script to generate Simplified Local Internet Number Resource Management w
 
 ## Usage
 ```
-makeSLURM.py -h
-usage: makeSLURM.py [-h] count
+makeSLURM.py --help
+usage: makeSLURM.py [-h] [--comment] count
 
 Generate a SLURM files with <COUNT> number of prefix assertions
 
@@ -14,4 +14,5 @@ positional arguments:
 
 optional arguments:
   -h, --help  show this help message and exit
+  --comment   include comment in entry (default is to no comment)
   ```
