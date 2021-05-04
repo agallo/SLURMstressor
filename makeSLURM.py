@@ -19,10 +19,13 @@ from sys import exit
 parser = ArgumentParser(description="Generate a SLURM files with <COUNT> number of prefix assertions")
 
 parser.add_argument('count', type=int, help="the number of assertions to generate")
+parser.add_argument("--comment", dest='include_comment', action='store_true',
+                    help="include comment in entry (default is to no comment)")
 
 args = parser.parse_args()
 
 count = args.count
+include_comment = args.include_comment
 
 if args.count > 94967294:
     answer = input("You asked for more entries that I can make.  Continue with max (94967294) (y/n)?")
@@ -50,10 +53,11 @@ def genV6list(incount):
     return listOfNetworks[0:incount]
 
 
-def genTuples(inListOfNetworks):
+def genTuples(inListOfNetworks, include_comment):
     """
     generate a list of tuples (ASN, prefix, comment)
     :param incount: number of entries to make
+    :param include_comment: bool indicating if we should add a comment
     :param inListOfNetworks: list of IPv6 networks
     :return: list of tuples
     """
@@ -61,7 +65,11 @@ def genTuples(inListOfNetworks):
     listOfEntries = []
     for i in range(4200000000, range_end):
         adjusted_index = i - 4200000000
-        entry = (i, str(inListOfNetworks[adjusted_index]), "comment_" + str(i))
+        if include_comment:
+            comment = "comment_" + str(i)
+        else:
+            comment = ""
+        entry = (i, str(inListOfNetworks[adjusted_index]), comment)
         listOfEntries.append(entry)
     return listOfEntries
 
@@ -98,7 +106,7 @@ def createSLURM(inDict):
 
 def main():
     v6List = genV6list(count)
-    slurm_tuples = genTuples(v6List)
+    slurm_tuples = genTuples(v6List, include_comment)
     slurmDict = genSLURM_dict(slurm_tuples)
     createSLURM(slurmDict)
 
